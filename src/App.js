@@ -1,25 +1,42 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import axios from 'axios'
+
 import './App.css';
 
-function App() {
+import BeerCard from './BeerCard'
+
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+        arrayOfBeer: []
+      
+    };
+  } 
+componentDidMount(){ //eh um metodo eh um componente que eh chamado qdo solicitado
+
+  axios.get('https://api.punkapi.com/v2/beers') //pegando o API para ser utilizado
+    .then (res => {
+      const arrayOfBeer = res.data
+      console.log("res", res)
+      this.setState({ arrayOfBeer })
+    })
+}
+
+render() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <ol>{this.state.arrayOfBeer.map((beer, index) => {
+        return(
+          <BeerCard key = {index} name={beer.name} image_url={beer.image_url} tagline={beer.tagline} first_brewed={beer.first_brewed}  abv={beer.abv} description={beer.description}/>
+        )
+      })}</ol>   
+         
       </header>
     </div>
   );
 }
-
+}
 export default App;
