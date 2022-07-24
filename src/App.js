@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-
 import './App.css';
 
 import BeerCard from './BeerCard'
@@ -24,13 +23,22 @@ componentDidMount(){ //eh um metodo eh um componente que eh chamado qdo solicita
     })
 }
 
+
 render() {
   return (
     <div className="App">
       <header className="App-header">
       <ol>{this.state.arrayOfBeer.map((beer, index) => {
         return(
-          <BeerCard key = {index} name={beer.name} image_url={beer.image_url} tagline={beer.tagline} first_brewed={beer.first_brewed}  abv={beer.abv} description={beer.description}/>
+          <BeerCard 
+          key = {index} 
+          name={beer.name}
+          image_url={beer.image_url} 
+          tagline={beer.tagline} 
+          first_brewed={beer.first_brewed}  
+          abv={beer.abv} 
+          description={beer.description}
+          handleClick={this.handleClick}/>
         )
       })}</ol>   
          
@@ -39,4 +47,5 @@ render() {
   );
 }
 }
+
 export default App;
